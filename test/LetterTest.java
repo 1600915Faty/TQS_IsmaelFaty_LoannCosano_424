@@ -18,5 +18,12 @@ class LetterTest {
         res = l.sameLetter('A');
         assertEquals(res, false);
         res = l.sameLetter('à');
+        assertEquals(res,false);
+        res=l.sameLetter('á');
+        assertEquals(res,false);
+        res=l.sameLetter('*');
+        assertEquals(res,false);
+        res=l.sameLetter('*');
+        assertEquals(res,false);
     }
 }
