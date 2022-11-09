@@ -1,18 +1,18 @@
 package Controler;
 
-import Controler.Letter;
 import View.View;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Word {
-    private Letter[] letters=new Letter[5];
+    private Letter[] letters= null;
     public Word(){}
     public Word(String word)
     {
         if(word.length()==5)
         {
+            letters=new Letter[5];
             char[] s=word.toCharArray();
             for(int i=0; i<5; i++)
             {
@@ -24,17 +24,15 @@ public class Word {
     public String getWordString() //pasa la lista de letras a un String
     {
         String wordString="";
-
-        for(int i=0; i<5; i++)
+        if(letters!=null)
         {
-            if(letters[i]!=null)
+            for(int i=0; i<5; i++)
             {
-                wordString+=letters[i].getLetter();
-            }
-            else{
-                return "";
-            }
 
+                wordString+=letters[i].getLetter();
+
+
+            }
         }
         return wordString;
     }
@@ -46,21 +44,21 @@ public class Word {
         }
         return false;
     }
-    public boolean printAchivements(Word wordExpected)//printea las coincidencias con la palabra esperada
+    public boolean printAchivements(Word wordExpected, View view)//printea las coincidencias con la palabra esperada
     {
-        Letter[] lettersExpected=wordExpected.getLetter();
+        Letter[] lettersExpected = wordExpected.getLetter();
 
         List<List<Integer>> mentions = new ArrayList<List<Integer>>();
 
-        mentions=samePosition(lettersExpected);
-        mentions=lettersInWord(lettersExpected,mentions.get(0),mentions.get(1));
+        mentions=samePosition(lettersExpected, view);
+        mentions=lettersInWord(lettersExpected,mentions.get(0),mentions.get(1), view);
         if(mentions.get(0).isEmpty() && mentions.get(1).isEmpty())
         {
             return false;
         }
         return true;
     }
-    public List<List<Integer>> samePosition(Letter[] lettersExpected)
+    public List<List<Integer>> samePosition(Letter[] lettersExpected, View view)
     {
         List<Integer> jaMencionatsIntroduced=new ArrayList<Integer>();
         List<Integer> jaMencionatsExpected=new ArrayList<Integer>();
@@ -77,7 +75,7 @@ public class Word {
                     {
                         jaMencionatsIntroduced.add(e);
                         jaMencionatsExpected.add(e);
-                        View.letterInPosition(letters[e].getLetter(), (e + 1));
+                        view.letterInPosition(letters[e].getLetter(), (e + 1));
                     }
                 }
                 else {
@@ -100,8 +98,11 @@ public class Word {
         {
             this.letters = l;
         }
+        else {
+            this.letters = null;
+        }
     }
-    public List<List<Integer>> lettersInWord(Letter[] lettersExpected, List<Integer> jaMencionatsIntroduced, List<Integer> jaMencionatsExpected)
+    public List<List<Integer>> lettersInWord(Letter[] lettersExpected, List<Integer> jaMencionatsIntroduced, List<Integer> jaMencionatsExpected, View view)
     {
         for(int e = 0; e < 5; e++)//bucle para comprobar que letras estan contenidas en la palabra esperada pero no se han encontrado en la posicion esperada en el bucle anterior
         {
@@ -117,7 +118,7 @@ public class Word {
                         {
                             jaMencionatsIntroduced.add(e);
                             jaMencionatsExpected.add(i);
-                            View.letterInWord(letters[e].getLetter());
+                            view.letterInWord(letters[e].getLetter());
                         }
                     }
                 }

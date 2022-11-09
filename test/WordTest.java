@@ -1,5 +1,6 @@
 import Controler.Letter;
 import Controler.Word;
+import View.View;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -7,10 +8,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertTrue;
 
 class WordTest {
-
     @Test
     void correctLettersTest()
     {
@@ -31,10 +31,10 @@ class WordTest {
     }
     @Test
     void getWordStringTest() {
-        Word w=new Word("willy");
-        String res=w.getWordString();
+        Word w = new Word("willy");
+        String res = w.getWordString();
         assertEquals(res,"willy");
-        w=new Word("notw");
+        w = new Word("notw");
         res=w.getWordString();
         assertEquals(res,"");
         w=new Word("outOfWords");
@@ -65,25 +65,24 @@ class WordTest {
         ls[2] = new Letter('r');
         ls[3] = new Letter('d');
         List<List<Integer>> mentions = new ArrayList<List<Integer>>();
-        mentions = w1.samePosition(ls);
-        assertEquals(true, mentions.get(0).isEmpty());
-        assertEquals(true, mentions.get(1).isEmpty());
+        mentions = w1.samePosition(ls, new View());
+        assertEquals(true, mentions.isEmpty());
         ls=new Letter[5];
         ls[0] = new Letter('W');
         ls[1] = new Letter(' ');
         ls[2] = new Letter('r');
         ls[3] = new Letter('d');
         ls[4] = new Letter('l');
-        mentions = w1.samePosition(ls);
+        mentions = w1.samePosition(ls, new View());
         assertEquals(mentions.isEmpty(), true);
         ls[1] = new Letter('o');
         ls[2] = new Letter(' ');
-        mentions = w1.samePosition(ls);
+        mentions = w1.samePosition(ls, new View());
         assertEquals(mentions.isEmpty(), true);
 
         ls[2] = new Letter('r');
         ls[3] = new Letter(' ');
-        mentions = w1.samePosition(ls);
+        mentions = w1.samePosition(ls, new View());
         assertEquals(mentions.isEmpty(), true);
     }
 
@@ -93,8 +92,8 @@ class WordTest {
         Word w1 = new Word("Wordl");
         Word w2 = new Word("ldtoW");
         List<List<Integer>> mentions = new ArrayList<List<Integer>>();
-        mentions = w1.samePosition(w2.getLetter());
-        mentions = w1.lettersInWord(w2.getLetter(), mentions.get(0), mentions.get(1));
+        mentions = w1.samePosition(w2.getLetter(), new View());
+        mentions = w1.lettersInWord(w2.getLetter(), mentions.get(0), mentions.get(1), new View());
         List<Integer> l1 = mentions.get(0);
         List<Integer> l2 = mentions.get(1);
         List<Integer> l3 = Arrays.asList(0,1,3,4);
@@ -106,9 +105,24 @@ class WordTest {
     @Test
     void printAchivementsTest()
     {
-        Word w1 = new Word("Wordl");
+        Word w1 = new Word("wordl");
         Word w2 = new Word("ppppp");
-        boolean res = w1.printAchivements(w2);
+        boolean res = w1.printAchivements(w2, new View());
         assertEquals(res,false);
+        Word w3 = new Word("wordl");
+        res = w1.printAchivements(w3, new View());
+        assertEquals(res, true);
+    }
+
+    @Test
+    void setLetterTest()
+    {
+        Word w1 = new Word();
+        Letter[] ls1 = new Letter[5];
+        w1.setLetters(ls1);
+        assertTrue(w1.getLetter()!=null);
+        Letter[] ls2 = new Letter[3];
+        w1.setLetters(ls2);
+        assertTrue(w1.getLetter() ==null);
     }
 }
