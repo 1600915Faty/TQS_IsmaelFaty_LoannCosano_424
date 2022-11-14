@@ -1,12 +1,11 @@
 import Controler.Player;
 import View.View;
-import org.junit.jupiter.api.Test;
+import View.MockView;
+import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.*;
 
-class PlayerTest {
-
+public class PlayerTest {
 
     @Test
     public void nameIntroducedCorrectTest() {
@@ -18,4 +17,13 @@ class PlayerTest {
         res = p.nameIntroducedCorrect("pau", new View());
         assertEquals(res,true);
     }
+    @Test
+    public void registerTest()
+    {
+        MockView mv = new MockView();
+        mv.setNamePlayer("Loann");
+        Player p = new Player();
+        p.register(mv);
+    }
+
 }

@@ -2,10 +2,7 @@ package Controler;
 
 public class Letter {
     private char letter;
-    public Letter()
-    {
-
-    }
+    public Letter() {}
     public Letter(char c)
     {
         this.letter=c;

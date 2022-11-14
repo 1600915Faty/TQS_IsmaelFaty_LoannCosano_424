@@ -10,6 +10,7 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GameTest {
+
     @Test
     void checkWordTest() throws IOException {
         MockWord m1 = new MockWord();
@@ -91,4 +92,5 @@ class GameTest {
         Game g2 = new Game(mv2);
         g2.play();
     }
+
 }

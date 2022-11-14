@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Word {
-    private Letter[] letters= null;
+    private Letter[] letters = null;
     public Word(){}
     public Word(String word)
     {
@@ -20,18 +20,40 @@ public class Word {
             }
         }
     }
-
+    public void setWord(String word){
+        letters = new Letter[word.length()];
+        char[] s=word.toCharArray();
+        if(!word.isEmpty())
+        {
+            for(int i = 0; i < word.length(); i++)
+            {
+                if(s[i] != ' ')
+                {
+                    letters[i]=new Letter(s[i]);
+                }
+                else {
+                    break;
+                }
+            }
+        }
+        else {
+            letters = null;
+        }
+    }
     public String getWordString() //pasa la lista de letras a un String
     {
         String wordString="";
-        if(letters!=null)
+        if(letters != null)
         {
             for(int i=0; i<5; i++)
             {
-
-                wordString+=letters[i].getLetter();
-
-
+                if(letters[i] != null)
+                {
+                    wordString+=letters[i].getLetter();
+                }
+                else {
+                    break;
+                }
             }
         }
         return wordString;
@@ -44,7 +66,7 @@ public class Word {
         }
         return false;
     }
-    public boolean printAchivements(Word wordExpected, View view)//printea las coincidencias con la palabra esperada
+    public List<List<Integer>> printAchivements(Word wordExpected, View view)//printea las coincidencias con la palabra esperada
     {
         Letter[] lettersExpected = wordExpected.getLetter();
 
@@ -52,11 +74,7 @@ public class Word {
 
         mentions=samePosition(lettersExpected, view);
         mentions=lettersInWord(lettersExpected,mentions.get(0),mentions.get(1), view);
-        if(mentions.get(0).isEmpty() && mentions.get(1).isEmpty())
-        {
-            return false;
-        }
-        return true;
+        return mentions;
     }
     public List<List<Integer>> samePosition(Letter[] lettersExpected, View view)
     {
@@ -64,9 +82,9 @@ public class Word {
         List<Integer> jaMencionatsExpected=new ArrayList<Integer>();
         List<List<Integer>> mentions = new ArrayList<List<Integer>>();
         boolean error=false;
-        if(lettersExpected.length==letters.length)
+        if(lettersExpected.length == letters.length)
         {
-            for(int e=0; e<5; e++)//bucle para comprovar que letras estan en la posicion esperada
+            for(int e = 0; e < lettersExpected.length; e++)//bucle para comprovar que letras estan en la posicion esperada
             {
                 if(lettersExpected[e].getLetter()!=' ')
                 {
@@ -94,36 +112,43 @@ public class Word {
     }
     public void setLetters(Letter[] l)
     {
-        if(l.length == 5)
-        {
-            this.letters = l;
-        }
-        else {
-            this.letters = null;
-        }
+        this.letters = l;
     }
     public List<List<Integer>> lettersInWord(Letter[] lettersExpected, List<Integer> jaMencionatsIntroduced, List<Integer> jaMencionatsExpected, View view)
     {
-        for(int e = 0; e < 5; e++)//bucle para comprobar que letras estan contenidas en la palabra esperada pero no se han encontrado en la posicion esperada en el bucle anterior
+        if(lettersExpected.length == letters.length)
         {
-            //need to see if works well
-            if(!jaMencionatsIntroduced.contains(e))
+            for(int e = 0; e < lettersExpected.length; e++)//bucle para comprobar que letras estan contenidas en la palabra esperada pero no se han encontrado en la posicion esperada en el bucle anterior
             {
-                for(int i = 0; i < 5; i++)
+                //need to see if works well
+                if(!jaMencionatsIntroduced.contains(e) && letters[e].getLetter() != ' ')
                 {
-                    if(!jaMencionatsExpected.contains(i))
+                    for(int i = 0; i < lettersExpected.length; i++)
                     {
-                        boolean res = letters[e].sameLetter(lettersExpected[i].getLetter());
-                        if(res && !jaMencionatsIntroduced.contains(e))
+                        if(!jaMencionatsExpected.contains(i) && lettersExpected[i].getLetter() != ' ')
                         {
-                            jaMencionatsIntroduced.add(e);
-                            jaMencionatsExpected.add(i);
-                            view.letterInWord(letters[e].getLetter());
+                            boolean res = letters[e].sameLetter(lettersExpected[i].getLetter());
+                            if(res && !jaMencionatsIntroduced.contains(e))
+                            {
+                                jaMencionatsIntroduced.add(e);
+                                jaMencionatsExpected.add(i);
+                                view.letterInWord(letters[e].getLetter());
+                            }
+                        }
+                        else if(lettersExpected[i].getLetter() == ' ')
+                        {
+                            break;
                         }
                     }
                 }
+                else if(letters[e].getLetter() == ' ')
+                {
+                    break;
+                }
             }
         }
+
+
         List<List<Integer>> mentions = new ArrayList<List<Integer>>();
         mentions.add(jaMencionatsIntroduced);
         mentions.add(jaMencionatsExpected);

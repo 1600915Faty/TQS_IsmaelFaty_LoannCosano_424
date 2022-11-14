@@ -28,9 +28,4 @@ class LetterTest {
         assertEquals(res,false);
     }
 
-    @Test
-    void constructorsTest()
-    {
-
-    }
 }
