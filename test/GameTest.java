@@ -1,4 +1,7 @@
 import Controler.Game;
+import Controler.MockPlayer;
+import Controler.MockWord;
+import View.MockView;
 import View.View;
 import org.junit.jupiter.api.Test;
 
