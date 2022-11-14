@@ -73,7 +73,7 @@ public class Game {
         view.printWelcome();
         view.printLine();
         wordExpected = dificult();
-        System.out.println(wordExpected.getWordString());
+        //System.out.println(wordExpected.getWordString()); //IF YOU WANT TO SEE THE WORD EXPECTED, YOU CAN TAKE OFF THIS COMMENT
         view.printLine();
         player.register(this.view);
         view.printLine();
