@@ -12,19 +12,19 @@ class LetterTest {
         Letter l = new Letter();
         l.setLetter('a');
         Assertions.assertEquals('a',l.getLetter());
-        boolean res = l.sameLetter('a');
+        boolean res = l.sameLetter('a');//vàlid
         assertEquals(res,true);
-        res = l.sameLetter('1');
+        res = l.sameLetter('1');//no vàlid
         assertEquals(res,false);
-        res = l.sameLetter('A');
+        res = l.sameLetter('A');//no vàlid
         assertEquals(res,false);
-        res = l.sameLetter('à');
+        res = l.sameLetter('à');//no vàlid
         assertEquals(res,false);
-        res = l.sameLetter('á');
+        res = l.sameLetter('á');//no vàlid
         assertEquals(res,false);
-        res = l.sameLetter('*');
+        res = l.sameLetter('*');//no vàlid
         assertEquals(res,false);
-        res = l.sameLetter('*');
+        res = l.sameLetter('*');//no vàlid
         assertEquals(res,false);
     }
 

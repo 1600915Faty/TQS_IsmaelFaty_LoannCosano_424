@@ -12,24 +12,6 @@ import static org.junit.Assert.assertTrue;
 
 class WordTest {
     @Test
-    void correctLettersTest()
-    {
-        Letter[] letters = new Letter[5];
-        letters[0] = new Letter('e');
-        letters[1] = new Letter('r');
-        letters[2] = new Letter('t');
-        letters[3] = new Letter('y');
-        letters[4] = new Letter('u');
-        Word w = new Word("ertyu");
-        Letter[] l = w.getLetter();
-        assertEquals(l[0].getLetter(),letters[0].getLetter());
-        assertEquals(l[1].getLetter(),letters[1].getLetter());
-        assertEquals(l[2].getLetter(),letters[2].getLetter());
-        assertEquals(l[3].getLetter(),letters[3].getLetter());
-        assertEquals(l[4].getLetter(),letters[4].getLetter());
-
-    }
-    @Test
     void getWordStringTest() {
         Word w = new Word("willy");
         String res = w.getWordString();
@@ -83,6 +65,14 @@ class WordTest {
         ls[3] = new Letter(' ');
         mentions = w1.samePosition(ls, new View());
         assertEquals(mentions.isEmpty(), true);
+        ls[3] = new Letter('d');
+        ls[4] = new Letter(' ');
+        mentions = w1.samePosition(ls, new View());
+        assertEquals(mentions.isEmpty(), true);
+        ls[4] = new Letter('l');
+        mentions = w1.samePosition(ls, new View());
+        assertEquals(mentions.isEmpty(), false);
+
     }
 
     @Test
@@ -310,19 +300,6 @@ class WordTest {
         w.setWord("aeiou");
         str = w.getWordString();
         assertEquals(str, "aeiou");
-    }
-
-
-    @Test
-    void setLetterTest()
-    {
-        Word w1 = new Word();
-        Letter[] ls1 = new Letter[5];
-        w1.setLetters(ls1);
-        assertTrue(w1.getLetter()!=null);
-        Letter[] ls2 = new Letter[3];
-        w1.setLetters(ls2);
-        assertTrue(w1.getLetter() !=null);
     }
 
     @Test

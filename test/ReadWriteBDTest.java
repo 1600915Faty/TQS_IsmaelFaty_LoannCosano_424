@@ -11,7 +11,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class ReadWriteBDTest {
 
     @Test
-    void savePlayer() throws IOException {
+    void getWordExpectedTest() throws IOException {
+        String s = ReadWriteBD.getWordExpected("norula");
+        assertEquals(s, "f");
+    }
+    @Test
+    void savePlayerTest() throws IOException {
         PrintWriter pw = new PrintWriter("src/Model/RankingTest1");
         pw.close();
         BufferedWriter writer = new BufferedWriter(new FileWriter("src/Model/RankingTest1", true));
@@ -37,5 +42,12 @@ class ReadWriteBDTest {
         Path filePath2 = Path.of("src/Model/RankingTest2");
         long mismatch = Files.mismatch(filePath1, filePath2);
         assertEquals(mismatch,-1);
+    }
+    @Test
+    void getPlayerTest() throws IOException {
+        String s = ReadWriteBD.getPlayer(100);
+        assertEquals(s, "");
+        s = ReadWriteBD.getPlayer(0);
+        assertEquals(s, "theBest 16");
     }
 }

@@ -141,7 +141,6 @@ public class Game {
         {
             introduced = view.readWord();
 
-            //Falta comprovar numeros
             correct = goodIntroduction(introduced);
         }
         introduced = introduced.toLowerCase();

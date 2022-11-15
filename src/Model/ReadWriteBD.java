@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 
 public class ReadWriteBD {
@@ -22,10 +23,9 @@ public class ReadWriteBD {
             guess = Files.readAllLines(path).get(int_random);//get the word of the line int_random
             //System.out.println(guess);//to comment, is the wordExpected
         }
-        catch(IOException e)//Cambiar a una funcion que te cree el fichero
+        catch(IOException e)
         {
-            File myObj = new File(nameFile);
-            myObj.createNewFile();
+            return "f";
         }
         return guess;
     }
@@ -80,6 +80,13 @@ public class ReadWriteBD {
     }
     public static String getPlayer(int pos) throws IOException {
         Path path = Paths.get("src/Model/Ranking");
-        return Files.readAllLines(path).get(pos);
+        List<String> e = Files.readAllLines(path);
+        if(pos>=0 && pos<e.size())
+        {
+            return Files.readAllLines(path).get(pos);
+        }
+        else {
+            return "";
+        }
     }
 }

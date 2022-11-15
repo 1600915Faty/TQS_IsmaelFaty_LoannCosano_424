@@ -10,11 +10,11 @@ public class PlayerTest {
     @Test
     public void nameIntroducedCorrectTest() {
         Player p = new Player();
-        boolean res = p.nameIntroducedCorrect("pa u", new View());
+        boolean res = p.nameIntroducedCorrect("pa u", new View());//incorrect
         assertEquals(res,false);
-        res = p.nameIntroducedCorrect("", new View());
+        res = p.nameIntroducedCorrect("", new View());//incorrect
         assertEquals(res,false);
-        res = p.nameIntroducedCorrect("pau", new View());
+        res = p.nameIntroducedCorrect("pau", new View());//correct
         assertEquals(res,true);
     }
     @Test
